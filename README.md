@@ -4,7 +4,7 @@ PixelStick216 with RasPi and GUI on 3.2" SPI-LCD
 This is a remake of the PixelStick
 This is used for long exposure photos.
 
-It uses a RasPi 3 with a 3.2" LCD to control the Stick.
+It uses a RasPi 3 with a 3.2" Waveshare LCD to control the Stick.
 
 It displays Images with a max heigh of 216 pixels in png format.
 The Path of the images is configureable in the constructor of prgElements.
@@ -24,5 +24,4 @@ If the Button is Pressed during the displaying the image goes black and ends.
 In my version the Stick is 1500mm long and have 216 LEDs.
 This creates a very sharp image.
 
-If you need more Infos, contact me.
-issue or something.
+
