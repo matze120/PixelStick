@@ -16,7 +16,7 @@ class prgElement(object):
         LED_PIN        = 12      # GPIO pin connected to the pixels (18 uses PWM!).
         #LED_PIN        = 10      # GPIO pin connected to the pixels (10 uses SPI /dev/spidev0.0).
         LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
-        LED_DMA        = 8       # DMA channel to use for generating signal (try 5)
+        LED_DMA        = 10       # DMA channel to use for generating signal (try 5)
         LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
         LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
         LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
@@ -54,6 +54,7 @@ class prgElement(object):
         if(self.listPos < (len(self.newList)-1)):
             self.listPos += 1
         self.displayImage()
+        
         
     def decrListPos(self):
         if(self.listPos > 0):
@@ -116,6 +117,7 @@ class prgElement(object):
         self.gammaCorrection()
         self.allocateImage()
         self.convertImage()
+        self.Controller.updateDuration((self.width * self.Speed))
         while(GPIO.input(16) == 1):
             self.setLED()
             time.sleep(0.1)
@@ -148,6 +150,7 @@ class prgElement(object):
         self.width     = img.size[0]
         self.height    = img.size[1]
         print("%dx%d pixels" % img.size)
+        
         # TODO: add resize here if image is not desired height
     
     # Calculate gamma correction table.
@@ -202,4 +205,10 @@ class prgElement(object):
     def sysShutdown(self):
         os.system("sudo shutdown -h now")
         sys.exit()
+        
+    def focus(self):
+        self.strip.setPixelColor(108, Color(255,0,0))
+        self.strip.setPixelColor(88, Color(255,0,0))
+        self.strip.setPixelColor(128, Color(255,0,0))
+        self.strip.show()
         

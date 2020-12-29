@@ -38,6 +38,7 @@ class Controller() :
         self.Window.ui.btnSpeedInc.clicked.connect(self.incrSpeed)
         self.Window.ui.btnSpeedDec.clicked.connect(self.decrSpeed)
         self.Window.ui.btnOK.clicked.connect(self.startScreensaver)
+        self.Window.ui.btnFocus.clicked.connect(self.Focus)
         
         
     def incrListPos(self):
@@ -87,3 +88,9 @@ class Controller() :
         
     def sysShutdown(self):
         self.prog.sysShutdown()
+        
+    def Focus(self):
+        self.prog.focus()
+        
+    def updateDuration(self, val):
+        self.Window.ui.lblDuration.setText(str(val))
