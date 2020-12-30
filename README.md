@@ -21,7 +21,7 @@ The GUI provides a preview of the image.
 The Brightness, the direction and the speed of the Image is configureable during runtime in the menu tab.  
 The Button OK starts the screensaver so the Display is completely dark.
 
-The LEDs are WS2811. they are controlled by the Adafruit neopixel library.
+The LEDs are WS2811. they are controlled by the a neopixel library.
 [rpi-ws281x Library](https://github.com/rpi-ws281x/rpi-ws281x-python)
 
 If the "FIRE" button is pressed the image gets converted. Then the LED in the button begins to start blinking to show that the convert process is finished.
