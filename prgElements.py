@@ -2,7 +2,7 @@ import sys
 import os
 from PyQt5.QtGui import QIcon, QPixmap
 import RPi.GPIO as GPIO, time
-from PIL import Image
+from PIL import Image, ImageOps
 import time
 import signal
 from neopixel import *
@@ -25,6 +25,7 @@ class prgElement(object):
         self.listPos = 0
         self.Brightness = 255
         self.Speed = 0.05
+        self.Flip = 0
         self.Controller = object
         '''
         constructor
@@ -141,11 +142,14 @@ class prgElement(object):
         self.strip.show()
             
     def loadImage(self):
-        img       = Image.open((self.myFile + self.newList[self.listPos])).convert("RGB")
-        self.pixels    = img.load()
-        self.width     = img.size[0]
-        self.height    = img.size[1]
-        print("%dx%d pixels" % img.size)
+        self.img       = Image.open((self.myFile + self.newList[self.listPos])).convert("RGB")
+        if(self.Flip == 1):
+            self.im_mirror = ImageOps.mirror(self.img)
+            self.img = self.im_mirror
+        self.pixels    = self.img.load()
+        self.width     = self.img.size[0]
+        self.height    = self.img.size[1]
+        print("%dx%d pixels" % self.img.size)
         
         # TODO: add resize here if image is not desired height
     
@@ -172,6 +176,16 @@ class prgElement(object):
                 self.column[x][y3 + 1] = self.gamma[value[1]]    #Green 0
                 self.column[x][y3 + 2] = self.gamma[value[2]]    #Blue 1
     
+# Image Flip
+#######################################################################  
+    def ImageFwd(self):
+        self.Flip = 0
+        print("Image Fwd")
+        
+    def ImageBwd(self):
+        self.Flip = 1
+        print("Image Bwd")
+    
     def displayImageStrip(self):
         for x in range(0, self.width):
             z = 0
@@ -191,10 +205,13 @@ class prgElement(object):
         self.blackout()
         time.sleep(0.5)
     
+# Screensaver
+#######################################################################
     def startScreensaver(self):
         os.system("xscreensaver-command -activate")
     
-        
+# Exit and Shutdown
+#######################################################################     
     def exitSoftware(self):
         sys.exit("Programm ended by user")
         
@@ -202,6 +219,8 @@ class prgElement(object):
         os.system("sudo shutdown -h now")
         sys.exit()
         
+# Focus Functions
+#######################################################################
     def focus(self):
         self.strip.setPixelColor(106, Color(255,0,0))
         self.strip.setPixelColor(108, Color(255,0,0))
@@ -213,6 +232,8 @@ class prgElement(object):
     def focusOff(self):
         self.blackout()
         
+# Flashlight Functions
+#######################################################################        
     def LightOff(self):
         self.blackout()
         

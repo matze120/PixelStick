@@ -44,6 +44,8 @@ class Controller() :
         self.Window.ui.btnFl25.clicked.connect(self.Light25)
         self.Window.ui.btnFl50.clicked.connect(self.Light50)
         self.Window.ui.btnFl100.clicked.connect(self.Light100)
+        self.Window.ui.btnLR.clicked.connect(self.DirLR)
+        self.Window.ui.btnRL.clicked.connect(self.DirRL)
         
         
     def incrListPos(self):
@@ -114,4 +116,10 @@ class Controller() :
         
     def Light100(self):
         self.prog.Light(100)
+        
+    def DirLR(self):
+        self.prog.ImageFwd()
+    
+    def DirRL(self):
+        self.prog.ImageBwd()
         
