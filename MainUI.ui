@@ -100,6 +100,19 @@
        <string>-&gt;</string>
       </property>
      </widget>
+     <widget class="QLabel" name="lblDir">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>170</y>
+        <width>31</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>--&gt;</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="menu">
      <attribute name="title">

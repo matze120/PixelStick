@@ -119,7 +119,9 @@ class Controller() :
         
     def DirLR(self):
         self.prog.ImageFwd()
+        self.Window.ui.lblDir.setText("-->")
     
     def DirRL(self):
         self.prog.ImageBwd()
+        self.Window.ui.lblDir.setText("<--")
         
