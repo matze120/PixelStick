@@ -39,6 +39,11 @@ class Controller() :
         self.Window.ui.btnSpeedDec.clicked.connect(self.decrSpeed)
         self.Window.ui.btnOK.clicked.connect(self.startScreensaver)
         self.Window.ui.btnFocus.clicked.connect(self.Focus)
+        self.Window.ui.btnFocusOff.clicked.connect(self.FocusOff)
+        self.Window.ui.btnFlOff.clicked.connect(self.LightOff)
+        self.Window.ui.btnFl25.clicked.connect(self.Light25)
+        self.Window.ui.btnFl50.clicked.connect(self.Light50)
+        self.Window.ui.btnFl100.clicked.connect(self.Light100)
         
         
     def incrListPos(self):
@@ -92,5 +97,21 @@ class Controller() :
     def Focus(self):
         self.prog.focus()
         
+    def FocusOff(self):
+        self.prog.focusOff()
+        
     def updateDuration(self, val):
         self.Window.ui.lblDuration.setText(str(val))
+        
+    def LightOff(self):
+        self.prog.LightOff()
+        
+    def Light25(self):
+        self.prog.Light(25)
+        
+    def Light50(self):
+        self.prog.Light(50)
+        
+    def Light100(self):
+        self.prog.Light(100)
+        

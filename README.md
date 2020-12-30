@@ -23,5 +23,3 @@ If the Button is Pressed during the displaying the image goes black and ends.
 
 In my version the Stick is 1500mm long and have 216 LEDs.
 This creates a very sharp image.
-
-

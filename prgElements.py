@@ -3,7 +3,6 @@ import os
 from PyQt5.QtGui import QIcon, QPixmap
 import RPi.GPIO as GPIO, time
 from PIL import Image
-#import spidev
 import time
 import signal
 from neopixel import *
@@ -14,7 +13,6 @@ class prgElement(object):
         # LED strip configuration:
         LED_COUNT      = 216      # Number of LED pixels.
         LED_PIN        = 12      # GPIO pin connected to the pixels (18 uses PWM!).
-        #LED_PIN        = 10      # GPIO pin connected to the pixels (10 uses SPI /dev/spidev0.0).
         LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
         LED_DMA        = 10       # DMA channel to use for generating signal (try 5)
         LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
@@ -96,6 +94,7 @@ class prgElement(object):
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_UP)    #input for Switch K1
         GPIO.setup(23, GPIO.IN, pull_up_down=GPIO.PUD_UP)    #input for Switch K2
+        GPIO.setup(24, GPIO.IN, pull_up_down=GPIO.PUD_UP)    #input for Switch K3
         GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_UP)    #input for Switch FIRE
         GPIO.setup(20, GPIO.OUT, initial=GPIO.LOW)           #LED from switch
         
@@ -104,12 +103,9 @@ class prgElement(object):
             self.Controller.updateTab(0)
         if(GPIO.input(23) == 0):
             self.Controller.updateTab(1)
+        if(GPIO.input(24) == 0):
+            self.Controller.updateTab(2)
         if(GPIO.input(16) == 0):
-            #self.loadImage()
-            #self.gammaCorrection()
-            #self.allocateImage()
-            #self.convertImage()
-            #self.displayImageStrip()
             self.prepareForDisplaying()
             
     def prepareForDisplaying(self):
@@ -207,8 +203,24 @@ class prgElement(object):
         sys.exit()
         
     def focus(self):
+        self.strip.setPixelColor(106, Color(255,0,0))
         self.strip.setPixelColor(108, Color(255,0,0))
         self.strip.setPixelColor(88, Color(255,0,0))
         self.strip.setPixelColor(128, Color(255,0,0))
+        self.strip.setPixelColor(130, Color(255,0,0))
+        self.strip.show()
+    
+    def focusOff(self):
+        self.blackout()
+        
+    def LightOff(self):
+        self.blackout()
+        
+    def Light(self, val):
+        for i in range(0, self.strip.numPixels()):
+            self.strip.setPixelColor(i,Color(0,0,0))
         self.strip.show()
         
+        for LED in range(val):
+            self.strip.setPixelColor(LED, Color(255,255,255))
+        self.strip.show()
