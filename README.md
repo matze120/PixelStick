@@ -1,7 +1,8 @@
 # PixelStick
 PixelStick216 with RasPi and GUI on 3.2" SPI-LCD
 
-This is a remake of the PixelStick
+This is a remake of the PixelStick.  
+[Original Pixel Stick](http://www.thepixelstick.com)
 This is used for long exposure photos.
 
 It uses a RasPi 3 with a 3.2" Waveshare LCD to control the Stick.
